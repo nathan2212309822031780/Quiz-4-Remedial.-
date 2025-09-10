@@ -25,7 +25,8 @@ class PostDetailSlugView(DetailView):
 class PostDeleteView(DeleteView):
     model = Post
     template_name = 'posts/post_confirm_delete.html'
-    success_url = 'posts:post-list'
+    success_url = reverse_lazy('posts:post-list')
+
     
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
@@ -34,6 +35,10 @@ class PostDeleteView(DeleteView):
         return obj
     
 class PostUpdateView(LoginRequiredMixin, UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'posts/post_update.html'
+    success_url = reverse_lazy('posts:post-list')
 
     
     def get_object(self, queryset=None):
